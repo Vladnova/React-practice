@@ -5,8 +5,7 @@ import paintings from './paintings.json';
 import ColorPicker from './components/ColorPicker/ColorPicker';
 import Panel from './components/Panel/Panel';
 import Notification from './components/Notification/Notification';
-import Container from './components/Container/Container';
-import AppBar from './components/AppBar/AppBar';
+
 import Layout from './components/Layout/Layout';
 
 
