@@ -8,10 +8,6 @@ class Counter extends Component {
     initialValue: 0,
   };
 
-  static propTypes = {
-    //
-  };
-
   state = {
     value: this.props.initialValue,
   };
@@ -27,14 +23,10 @@ class Counter extends Component {
       value: prevState.value - 1,
     }));
   };
-
   render() {
-    const { value } = this.state;
-
     return (
       <div className="Counter">
-        <Value value={value} />
-
+        <Value value={this.state.value} />
         <Controls
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
