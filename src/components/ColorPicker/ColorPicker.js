@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import './ColorPicker.css';
-// import classNames from 'classnames/bind';
+import styles from './ColorPicker.module.css';
+import classNames from 'classnames/bind';
+
+let classes = classNames.bind(styles);
 
 class ColorPicker extends Component {
   state = {
@@ -11,13 +13,10 @@ class ColorPicker extends Component {
     this.setState({ activeOptionIdx: index });
   };
 
-  makeOptionClassName = index => {
-    const optionClasses = ['ColorPicker__option'];
-    if (index === this.state.activeOptionIdx) {
-      optionClasses.push('ColorPicker__option--active');
-    }
-    return optionClasses.join(' ');
-  };
+  makeOptionClassName = index =>
+    classes('ColorPicker__option', {
+      'ColorPicker__option--active': index === this.state.activeOptionIdx,
+    });
 
   render() {
     const { activeOptionIdx } = this.state;
@@ -25,8 +24,8 @@ class ColorPicker extends Component {
     const { label } = options[activeOptionIdx];
 
     return (
-      <div className="ColorPicker">
-        <h2 className="ColorPicker__title">ColorPicker</h2>
+      <div className={styles.ColorPicker}>
+        <h2 className={styles.ColorPicker__title}>ColorPicker</h2>
         <p>вибран цвет: {label} </p>
         <div>
           {this.props.options.map(({ label, color }, index) => {
