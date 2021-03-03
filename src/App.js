@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-// import Form from './components/Form';
-// import Counter from './components/Counter';
-// import Dropdown from './components/Dropdown';
-// import ColorPicker from './components/ColorPicker';
+import Form from './components/Form';
+import Counter from './components/Counter';
+import Dropdown from './components/Dropdown';
+import ColorPicker from './components/ColorPicker';
 import TodoList from './components/TodoList';
-// import initialTodos from './todos.json';
+import initialTodos from './todos.json';
 import shortid from 'shortid';
 import TodoEditir from './components/TodoEditir/TodoEditir';
 import Filter from './components/Filter/Filter';
 import Modal from './components/Modal';
-import Clock from './components/Clock/Clock';
+// import Clock from './components/Clock/Clock';
+// import Tabs from './components/Tabs';
+// import tabs from './tabs.json';
+import IconBtn from './components/IconBtn';
+import { ReactComponent as AddIcon } from './icon/plus.svg';
+import { ReactComponent as Close } from './icon/cancel.svg';
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -28,8 +33,13 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.todos !== prevState.todos) {
-      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    const nextTodo = this.state.todos;
+    const prevTodo = prevState.todos;
+    if (nextTodo !== prevTodo) {
+      localStorage.setItem('todos', JSON.stringify(nextTodo));
+    }
+    if (nextTodo.length > prevTodo.length && prevTodo.length !== 0) {
+      this.toggleModal();
     }
   }
 
@@ -91,11 +101,41 @@ class App extends Component {
     );
     return (
       <>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <TodoEditir onSubmit={this.addTodo} />
+            <IconBtn
+              onClick={this.toggleModal}
+              aria-label="Закрыть модальное окно"
+            >
+              <Close width="32" height="32" fill="red" />
+            </IconBtn>
+          </Modal>
+        )}
+        {/* <Tabs items={tabs} />
         {showModal && <Clock />}
 
         <button type="button" onClick={this.toggleModal}>
           Открыть
-        </button>
+        </button> */}
+        {/* <ColorPicker options={colorPickerOptions} /> */}
+        {/* <Form onSubmit={this.formSubmitHandler} /> */}
+
+        <IconBtn onClick={this.toggleModal} aria-label="Добавить todo">
+          <AddIcon width="40" height="40" fill="white" />
+        </IconBtn>
+        <TodoList
+          todos={visibleTodos}
+          onDeliteTodo={this.deleteTodo}
+          onToggleCompleted={this.ToggleCompleted}
+        />
+        <Filter value={filter} onChangeFilter={this.changeFilter} />
+        {/* <Counter initialValue={10} /> <Dropdown /> */}
+        {/* <ColorPicker options={colorPickerOptions} /> */}
+        <div>
+          <p>Общее кол-во: {todos.length}</p>
+          <p>Кол-во виполненых: {completedTodos} </p>
+        </div>
       </>
     );
   }
@@ -103,34 +143,5 @@ class App extends Component {
 
 export default App;
 
-// {showModal && (
-//           <Modal onClose={this.toggleModal}>
-//             <h1>Модальное окно</h1>
-//             <p>
-//               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum
-//               nihil reprehenderit officia nemo eum iusto ex sunt rem dicta
-//               architecto natus doloribus sit dolorem hic pariatur corrupti
-//               aspernatur, quod ipsa.
-//             </p>
-//             <button type="button" onClick={this.toggleModal}>
-//               Закрить
-//             </button>
-//           </Modal>
-//         )}
-//         {/* <ColorPicker options={colorPickerOptions} /> */}
-//         {/* <Form onSubmit={this.formSubmitHandler} /> */}
-//         <TodoList
-//           todos={visibleTodos}
-//           onDeliteTodo={this.deleteTodo}
-//           onToggleCompleted={this.ToggleCompleted}
-//         />
-
-//         <Filter value={filter} onChangeFilter={this.changeFilter} />
-//         {/* <Counter initialValue={10} /> */}
-//         {/* <Dropdown/> */}
-//         {/* <ColorPicker options={colorPickerOptions}/> */}
-//         <div>
-//           <p>Общее кол-во: {todos.length}</p>
-//           <p>Кол-во виполненых: {completedTodos} </p>
-//         </div>
-//         <TodoEditir onSubmit={this.addTodo} />
+//
+//
