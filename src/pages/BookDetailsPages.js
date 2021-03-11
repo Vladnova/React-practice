@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import Axios from 'axios';
+import React, { Component } from 'react';
 
-class BookDetailsView extends Component {
+class BookDetailsPages extends Component {
   state = {
     descr: null,
     genre: null,
@@ -13,19 +13,19 @@ class BookDetailsView extends Component {
 
   async componentDidMount() {
     const { bookId } = this.props.match.params;
-    const response = await Axios.get(
+    const { data } = await Axios.get(
       `http://localhost:4040/books/${bookId}?_expand=author`,
     );
-
-    this.setState({ ...response.data });
+    this.setState({ ...data });
   }
-
   render() {
-    const { imgUrl, title, author, descr } = this.state;
+    const { imgUrl, title, descr, author } = this.state;
+
     return (
       <>
-        <h1>Страница одной книги {this.props.match.params.bookId}</h1>
-        <img src={imgUrl} alt="" />
+        <h1>Це сторінка однієї книги</h1>
+
+        <img src={imgUrl} alt={title} />
         <h2>{title}</h2>
         {author && <p>Автор: {author.name}</p>}
         <p>{descr}</p>
@@ -34,4 +34,4 @@ class BookDetailsView extends Component {
   }
 }
 
-export default BookDetailsView;
+export default BookDetailsPages;

@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const AuthorBooks = ({ books }) => {
+const AuthorBooks = ({ books, props }) => {
   return (
-    <ul>
-      {books.map(book => (
-        <li key={book.id}>
-          <Link to={`/books/${book.id}`}>{book.title}</Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>Книги автора</h1>
+      <ul>
+        {books.map(({ title, id }) => (
+          <li key={id}>
+            <NavLink to={`/books/${id}`}>{title}</NavLink>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
