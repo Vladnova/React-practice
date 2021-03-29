@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import todosActions from '../../redux/todos/todosActions';
+import todosActions from '../../redux/todos/todos-actions';
 import './TodoEditor.scss';
 
 class TodoEditor extends Component {
@@ -15,9 +15,14 @@ class TodoEditor extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onSubmit(this.state.message);
+    if (this.state.message !== '') {
+      this.props.onSubmit(this.state.message);
+      this.props.onSave();
+      this.setState({ message: '' });
+      return;
+    }
 
-    this.setState({ message: '' });
+    alert('Заполни текст заметки.');
   };
 
   render() {
@@ -37,7 +42,7 @@ class TodoEditor extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: text => dispatch(todosActions.AddTodo(text)),
+  onSubmit: text => dispatch(todosActions.addTodo(text)),
 });
 
 export default connect(null, mapDispatchToProps)(TodoEditor);
