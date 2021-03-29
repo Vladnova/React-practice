@@ -1,28 +1,15 @@
-import types from './todosTypes';
+import { createAction } from '@reduxjs/toolkit';
 import shortid from 'shortid';
 
-const AddTodo = text => ({
-  type: types.ADD,
+const AddTodo = createAction('todos/Add', text => ({
   payload: {
     id: shortid.generate(),
     text,
     completed: false,
   },
-});
-
-const DeleteTodo = TodoId => ({
-  type: types.DELETE,
-  payload: TodoId,
-});
-
-const TogglerComplitedTodo = id => ({
-  type: types.TOGGLE_COMPLITED,
-  payload: id,
-});
-
-const FilterTodos = value => ({
-  type: types.CHANGE_FILTER,
-  payload: value,
-});
+}));
+const DeleteTodo = createAction('todos/Delete');
+const FilterTodos = createAction('todos/ToggleComplited');
+const TogglerComplitedTodo = createAction('todos/ChangeFilter');
 
 export default { AddTodo, DeleteTodo, TogglerComplitedTodo, FilterTodos };

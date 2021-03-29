@@ -20,29 +20,6 @@ class TodosView extends Component {
     showModal: false,
   };
 
-  // toggleCompleted = todoId => {
-  //   const todo = this.state.todos.find(({ id }) => id === todoId);
-  //   const { completed } = todo;
-  //   const update = { completed: !completed };
-
-  //   todosApi.updateTodo(todoId, update).then(updatedTodo => {
-  //     this.setState(({ todos }) => ({
-  //       todos: todos.map(todo =>
-  //         todo.id === updatedTodo.id ? updatedTodo : todo,
-  //       ),
-  //     }));
-  //   });
-  // };
-
-  // calculateCompletedTodos = () => {
-  //   const { todos } = this.state;
-
-  //   return todos.reduce(
-  //     (total, todo) => (todo.completed ? total + 1 : total),
-  //     0,
-  //   );
-  // };
-
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -56,7 +33,7 @@ class TodosView extends Component {
       <Container>
         <div style={barStyles}>
           <Filter />
-          {/* <Stats total={totalTodoCount} completed={completedTodoCount} /> */}
+          <Stats />
           <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
             <AddIcon width="40" height="40" fill="#fff" />
           </IconButton>
@@ -66,7 +43,7 @@ class TodosView extends Component {
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <TodoEditor />
+            <TodoEditor onCloseModal={this.toggleModal} />
           </Modal>
         )}
       </Container>

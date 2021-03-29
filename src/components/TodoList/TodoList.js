@@ -27,6 +27,7 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
 
 const getVisibleTodos = (todos, filter) => {
   const normalizedFilter = filter.toLowerCase();
+
   return todos.filter(({ text }) =>
     text.toLowerCase().includes(normalizedFilter),
   );
@@ -38,7 +39,7 @@ const mapStateToProps = ({ todos }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onDeleteTodo: id => dispatch(todosActions.DeleteTodo(id)),
-  onToggleCompleted: () => null,
+  onToggleCompleted: id => dispatch(todosActions.TogglerComplitedTodo(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

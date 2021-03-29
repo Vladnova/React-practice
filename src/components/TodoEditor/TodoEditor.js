@@ -16,7 +16,7 @@ class TodoEditor extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.message);
-
+    this.props.onCloseModal();
     this.setState({ message: '' });
   };
 
