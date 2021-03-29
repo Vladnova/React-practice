@@ -4,14 +4,16 @@ import {
   addTodoRequest,
   addTodoSuccess,
   addTodoError,
-  deleteTodo,
+  deleteTodoRequest,
+  deleteTodoSuccess,
+  deleteTodoError,
   changeFilter,
   toggleCompleted,
 } from './todos-actions';
 
 const items = createReducer([], {
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
-  [deleteTodo]: (state, { payload }) =>
+  [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
   [toggleCompleted]: (state, { payload }) =>
     state.map(todo =>
@@ -27,6 +29,9 @@ const loading = createReducer(false, {
   [addTodoRequest]: () => true,
   [addTodoSuccess]: () => false,
   [addTodoError]: () => false,
+  [deleteTodoRequest]: () => true,
+  [deleteTodoSuccess]: () => false,
+  [deleteTodoError]: () => false,
 });
 
 export default combineReducers({
