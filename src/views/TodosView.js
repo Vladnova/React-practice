@@ -5,6 +5,8 @@ import TodoEditor from '../components/TodoEditor';
 import Filter from '../components/TodoFilter';
 import Stats from '../components/Stats';
 import Modal from '../components/Modal';
+import { connect } from 'react-redux';
+import todosOperations from '../redux/todos/todos-operations';
 import IconButton from '../components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
 
@@ -18,6 +20,10 @@ class TodosView extends Component {
   state = {
     showModal: false,
   };
+
+  componentDidMount() {
+    this.props.getTodos();
+  }
 
   toggleModal = () => {
     this.setState(({ showModal }) => ({
@@ -50,4 +56,8 @@ class TodosView extends Component {
   }
 }
 
-export default TodosView;
+const mapDispatchToProps = dispatch => ({
+  getTodos: () => dispatch(todosOperations.fetchTodos()),
+});
+
+export default connect(null, mapDispatchToProps)(TodosView);
